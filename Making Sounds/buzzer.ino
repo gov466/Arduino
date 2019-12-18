@@ -1,4 +1,4 @@
- 
+ //buzzer with aurdino
 //2019.12.18
 
 int buzzer = 12;//the pin of the active buzzer
