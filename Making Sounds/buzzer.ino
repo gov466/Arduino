@@ -1,5 +1,5 @@
-//www.elegoo.com
-//2016.12.08
+ 
+//2019.12.18
 
 int buzzer = 12;//the pin of the active buzzer
 void setup()
