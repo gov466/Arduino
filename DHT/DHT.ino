@@ -1,5 +1,5 @@
-//www.elegoo.com
-//2018.10.25
+
+//temperature sensor
 
 
 #include <dht_nonblocking.h>
