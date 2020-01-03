@@ -1,4 +1,5 @@
-//servo motor programming in aurdino
+//servo motor programing in aurdino
+
 #include <Servo.h>
 
 Servo myservo;  // create servo object to control a servo
