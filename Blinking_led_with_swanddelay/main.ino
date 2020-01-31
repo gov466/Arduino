@@ -1,3 +1,4 @@
+//blink led with different leds using two switches
 int led1=1;
 int sw1=2;
 int led2=4;
