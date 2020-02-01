@@ -1,3 +1,4 @@
+//blink led with delay and loop
 int led1=1; 
 int sw1=2;
 int led2=4;
