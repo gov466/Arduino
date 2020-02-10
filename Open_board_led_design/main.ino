@@ -1,5 +1,5 @@
 //OPEN board led display
-int o=2;
+int o=2; //pins of aurdino
 int p=3;
 int e=4;
 int n=5;
