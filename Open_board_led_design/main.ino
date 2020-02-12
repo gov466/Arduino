@@ -1,14 +1,9 @@
-//OPEN board led display
-int o=2; //pins of aurdino
+int o=2;
 int p=3;
 int e=4;
 int n=5;
+int l=6;
 int sw1=13;
-int led1=6;
-int led2=7;
-int led3=8;
-int led4=9;
-int led5=10;
 void setup()
 {
   pinMode(o, OUTPUT);
@@ -16,6 +11,8 @@ void setup()
   pinMode(e, OUTPUT);
   pinMode(n, OUTPUT);
   pinMode(sw1,INPUT_PULLUP);
+  
+    
 }
 void open()
 {
@@ -41,49 +38,37 @@ void open()
   digitalWrite(n, HIGH);
   delay(500);
 }
-
+void led()
+{
+  digitalWrite(l, HIGH);
+    delay(550);
+    digitalWrite(l, LOW);
+    delay(550);
+}
 void loop()
 {
-  digitalWrite(led1,HIGH);
-  digitalWrite(led2, LOW);
-  digitalWrite(led3, LOW);
-  digitalWrite(led4, LOW);
-  digitalWrite(led5, LOW);
-  delay(250);
-  digitalWrite(led1,LOW);
-  digitalWrite(led2, HIGH);
-  digitalWrite(led3, LOW);
-  digitalWrite(led4, LOW);
-  digitalWrite(led5, LOW);
-  delay(250);
-  digitalWrite(led1,LOW);
-  digitalWrite(led2, LOW);
-  digitalWrite(led3, HIGH);
-  digitalWrite(led4, LOW);
-  digitalWrite(led5, LOW);
-  delay(250);
-  digitalWrite(led1,LOW);
-  digitalWrite(led2, LOW);
-  digitalWrite(led3, LOW);
-  digitalWrite(led4, HIGH);
-  digitalWrite(led5, LOW);
-  delay(250);
-  digitalWrite(led1,LOW);
-  digitalWrite(led2, LOW);
-  digitalWrite(led3, LOW);
-  digitalWrite(led4, LOW);
-  digitalWrite(led5, HIGH);
-  delay(250);
-  
-  
+  /*while(1)
+  {
+    digitalWrite(l, HIGH);
+    delay(250);
+    digitalWrite(l, LOW);
+    delay(250);
+  }*/
  // if(digitalRead(sw1) == LOW)
 //{
+ int j=2;
+  if(j==2)
+  {
+    led();
+  }
   for(int i=0;i<2;i++)
   {
   open();
+  //led();
   }
-  while(1)
+  for(int i=0;i<2;i++)
   {
+  
   digitalWrite(o, HIGH);
   digitalWrite(p, HIGH);
   digitalWrite(e, HIGH);
@@ -97,12 +82,9 @@ void loop()
      
     
   }
+  delay(1500);
 }
- /* if( int i==2)
-  {
-  
-  }
+
  
-//}*/
 
     
