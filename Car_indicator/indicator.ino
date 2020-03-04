@@ -1,17 +1,17 @@
 //Aurdino programming illustrating car indicator and brake light
-int led1=0;
+int led1=0; //initialising all leds
 int led2=1;
 int led3=5;
 int led4=6;
 int led5=7;
-int sw1=4;
+int sw1=4;  //switch for brake indicator
 int led6=8;
 int led7=9;
 int led8=10;
 int led9=11;
 int led10=12;
-int swL=3;
-int swR=2;
+int swL=3;  //switch for left indicator
+int swR=2;  //switch for right indicator
 void setup()
 {
   pinMode(led1, OUTPUT);
