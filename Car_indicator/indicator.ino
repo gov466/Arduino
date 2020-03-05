@@ -1,17 +1,16 @@
-//Aurdino programming illustrating car indicator and brake light
-int led1=0; //initialising all leds
+int led1=0;
 int led2=1;
 int led3=5;
 int led4=6;
 int led5=7;
-int sw1=4;  //switch for brake indicator
+int sw1=4;
 int led6=8;
 int led7=9;
 int led8=10;
 int led9=11;
 int led10=12;
-int swL=3;  //switch for left indicator
-int swR=2;  //switch for right indicator
+int swL=3;
+int swR=2;
 void setup()
 {
   pinMode(led1, OUTPUT);
@@ -28,11 +27,12 @@ void setup()
   pinMode(swL,INPUT_PULLUP);
   pinMode(swR,INPUT_PULLUP);
 }
-
-void loop()
+void brake()
 {
- if(digitalRead(sw1) == LOW)
+   if(digitalRead(sw1) == LOW)
  {
+   
+   
   digitalWrite(led1, HIGH);
   digitalWrite(led2, HIGH);
   digitalWrite(led3, HIGH);
@@ -43,7 +43,8 @@ void loop()
    digitalWrite(led8, HIGH);
    digitalWrite(led9, HIGH);
    digitalWrite(led10, HIGH);
-  }
+  
+ }
   else
   {
     digitalWrite(led1, LOW);
@@ -57,10 +58,10 @@ void loop()
    digitalWrite(led9, LOW);
    digitalWrite(led10, LOW);
   }
-  if(digitalRead(swL) == LOW)
-  
-  {
-    while(1)
+}
+void left_turn()
+{
+   for(int i=0;i<=3;i++)
   
   {
   digitalWrite(led1, HIGH);
@@ -92,12 +93,18 @@ void loop()
   digitalWrite(led3, LOW);
   digitalWrite(led4, LOW);
   digitalWrite(led5, HIGH);
-    } 
-  }
-  if(digitalRead(swR) == LOW)
+    }
+    digitalWrite(led1, LOW);
+  digitalWrite(led2, LOW);
+  digitalWrite(led3, LOW);
+  digitalWrite(led4, LOW);
+  digitalWrite(led5, LOW);
   
-  {
-    while(1)
+}
+void right_turn()
+{
+  
+    for(int i=0;i<=3;i++)
   
   {
   digitalWrite(led6, HIGH);
@@ -130,5 +137,26 @@ void loop()
   digitalWrite(led9, LOW);
   digitalWrite(led10, HIGH);
     } 
+     
+    digitalWrite(led6, LOW);
+  digitalWrite(led7, LOW);
+  digitalWrite(led8, LOW);
+  digitalWrite(led9, LOW);
+  digitalWrite(led10, LOW);
+  
+}
+
+void loop()
+{
+ brake();
+  if(digitalRead(swL) == LOW)
+  
+  {
+   left_turn();
+  }
+  if(digitalRead(swR) == LOW)
+  
+  {
+    right_turn();
   }
 }
