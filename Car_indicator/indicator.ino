@@ -1,6 +1,6 @@
 //Car indicatore and brake light using aurdino
 int led1=0;
-int led2=1;
+int led2=1;//initialisinv all leds and switches
 int led3=5;
 int led4=6;
 int led5=7;
@@ -12,7 +12,7 @@ int led9=11;
 int led10=12;
 int swL=3;
 int swR=2;
-void setup()
+void setup() //setup function
 {
   pinMode(led1, OUTPUT);
   pinMode(led2, OUTPUT);
@@ -28,7 +28,7 @@ void setup()
   pinMode(swL,INPUT_PULLUP);
   pinMode(swR,INPUT_PULLUP);
 }
-void brake()
+void brake() //function for brake 
 {
    if(digitalRead(sw1) == LOW)
  {
