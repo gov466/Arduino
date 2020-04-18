@@ -16,9 +16,9 @@ void setup()
   Serial.begin(9600); // Starting Serial Communication
   pinMode(pingPin, OUTPUT); // initialising pin 3 as output
   pinMode(echoPin, INPUT); // initialising pin 2 as input
-  pinMode(ledred,OUTPUT);
-  pinMode(ledgreen,OUTPUT);
-  pinMode(buzzer,OUTPUT);
+  pinMode(ledred,OUTPUT); //initialising pin 10 as output
+  pinMode(ledgreen,OUTPUT); //initialising pin 11 as output
+  pinMode(buzzer,OUTPUT);  //initialising pin 1 as output
   lcd.begin(16,2);
   lcd.setCursor(0,0);
   lcd.print("Water level indicator");
