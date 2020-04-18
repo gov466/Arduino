@@ -5,9 +5,9 @@ LiquidCrystal lcd(rs,en,d4,d5,d6,d7);
 
 const int echoPin = 2; // Echo Pin of Ultrasonic Sensor
 const int pingPin = 3; // Trigger Pin of Ultrasonic Sensor
-const int ledred = 10;
-const int ledgreen = 11;
-const int buzzer = 1;
+const int ledred = 10; //pin for red led
+const int ledgreen = 11; //pin for green led
+const int buzzer = 1; //pin for buzzer
 
 
                     
