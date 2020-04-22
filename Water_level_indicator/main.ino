@@ -28,14 +28,17 @@
 
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
-
+const int buzzer=4;
 const int echoPin = 2; // Echo Pin of Ultrasonic Sensor
 const int pingPin = 3; // Trigger Pin of Ultrasonic Sensor
+
+
 void setup() {
   
   Serial.begin(9600); // Starting Serial Communication
   pinMode(pingPin, OUTPUT); // initialising pin 3 as output
   pinMode(echoPin, INPUT); // initialising pin 2 as input
+  pinMode(buzzer, OUTPUT);
   
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
@@ -57,6 +60,7 @@ void setup() {
 }
 
 void loop() {
+ // digitalWrite(buzzer, LOW);
    long duration, inches, cm;
   
   digitalWrite(pingPin, LOW);
@@ -71,10 +75,12 @@ void loop() {
   duration = pulseIn(echoPin, HIGH); // using pulsin function to determine total time
   inches = microsecondsToInches(duration); // calling method
   cm = microsecondsToCentimeters(duration); // calling method
-  if((cm<20)&&(cm>11))
+  if((cm<14)&&(cm>3))
   {
   lcd.setCursor(0,0);
   lcd.print("Water level indicator");
+  digitalWrite(buzzer, LOW);
+  
   }
   lcd.setCursor(0,1);
   lcd.print(inches);
@@ -82,21 +88,22 @@ void loop() {
   lcd.print(cm);
   lcd.print("cm");
  
-  if(cm>20)
+  if(cm>14)
   {
     lcd.clear();
-    lcd.print("Overflow");
-    
+    lcd.print("underflow");
+    digitalWrite(buzzer, LOW);
     //digitalWrite(ledgreen, HIGH);
     //digitalWrite(ledred, LOW);
     //digitalWrite(buzzer, HIGH);
     
     
   }
-  else if(cm<11)
+  else if(cm<3)
   {
     lcd.clear();
-    lcd.print("underflow");
+    lcd.print("overflow");
+    digitalWrite(buzzer, HIGH);
     //digitalWrite(ledred, HIGH);
     //digitalWrite(ledgreen, LOW);
     //digitalWrite(buzzer, LOW);
