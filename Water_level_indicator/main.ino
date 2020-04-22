@@ -92,7 +92,7 @@ void loop() {
   {
     lcd.clear();
     lcd.print("underflow");
-    digitalWrite(buzzer, LOW);
+    digitalWrite(buzzer, HIGH);    // to turn on buzzer when water is going to empty
     //digitalWrite(ledgreen, HIGH);
     //digitalWrite(ledred, LOW);
     //digitalWrite(buzzer, HIGH);
@@ -103,7 +103,7 @@ void loop() {
   {
     lcd.clear();
     lcd.print("overflow");
-    digitalWrite(buzzer, HIGH);
+    digitalWrite(buzzer, LOW);
     //digitalWrite(ledred, HIGH);
     //digitalWrite(ledgreen, LOW);
     //digitalWrite(buzzer, LOW);
