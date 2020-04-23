@@ -1,10 +1,10 @@
 //Push button controlling motor
-int LEDState=0;
+int LEDState=0; //setting initial state of led as 0
 int LEDPin=3; //led connected to pin 3
-int buttonPin=4;
-int buttonNew;
-int buttonOld=1;
-int dt=100;
+int buttonPin=4; //pushbutton connected to pin 4 of arduino
+int buttonNew; //declating a variable for new value of pushbutton
+int buttonOld=1; //setting old value of pushbutton as 1
+
  
 void setup() {
   // put your setup code here, to run once:
