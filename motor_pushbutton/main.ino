@@ -15,11 +15,11 @@ pinMode(buttonPin, INPUT);
 }
  
 void loop() {
-buttonNew=digitalRead(buttonPin);
-if(buttonOld==0 && buttonNew==1){
-  if (LEDState==0){
-    digitalWrite(LEDPin,HIGH);
-    LEDState=1;
+buttonNew=digitalRead(buttonPin); //reading the state of pushbutton
+if(buttonOld==0 && buttonNew==1){  //checking the value of pushbutton if previous value is 0 and next value is 1 then check value of led
+  if (LEDState==0){         //checking the state of led
+    digitalWrite(LEDPin,HIGH); //if its turned of the setting it on
+    LEDState=1;    //and then changing the state of led
   }
   else{
     digitalWrite(LEDPin, LOW);
