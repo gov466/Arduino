@@ -22,10 +22,10 @@ if(buttonOld==0 && buttonNew==1){  //checking the value of pushbutton if previou
     LEDState=1;    //and then changing the state of led
   }
   else{
-    digitalWrite(LEDPin, LOW);
+    digitalWrite(LEDPin, LOW); //else turn it off
     LEDState=0;
   }
 }
-buttonOld=buttonNew;
-//delay(dt);
+buttonOld=buttonNew;   //assigning value of newbutton to old one
+ 
 }
