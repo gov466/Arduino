@@ -31,6 +31,10 @@ LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 const int buzzer=4;
 const int echoPin = 2; // Echo Pin of Ultrasonic Sensor
 const int pingPin = 3; // Trigger Pin of Ultrasonic Sensor
+const int buttonPin= 6;
+int buttonNew;
+int buttonOld =0;
+int d=0.7545;
 
 
 void setup() {
@@ -39,6 +43,7 @@ void setup() {
   pinMode(pingPin, OUTPUT); // initialising pin 3 as output
   pinMode(echoPin, INPUT); // initialising pin 2 as input
   pinMode(buzzer, OUTPUT);
+  pinMode(buttonPin, INPUT);
   
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
@@ -48,7 +53,7 @@ void setup() {
   lcd.print("Water Level ");
   lcd.setCursor(4, 1);
   lcd.print("Indicator");
-  delay(1500);
+  delay(500);
   lcd.clear();
   delay(500);
   }
@@ -61,6 +66,7 @@ void setup() {
 
 void loop() {
  // digitalWrite(buzzer, LOW);
+   
    long duration, inches, cm;
   
   digitalWrite(pingPin, LOW);
@@ -75,7 +81,7 @@ void loop() {
   duration = pulseIn(echoPin, HIGH); // using pulsin function to determine total time
   inches = microsecondsToInches(duration); // calling method
   cm = microsecondsToCentimeters(duration); // calling method
-  if((cm<14)&&(cm>3))
+  if((cm<500)&&(cm>400))
   {
   lcd.setCursor(0,0);
   lcd.print("Water level indicator");
@@ -88,59 +94,44 @@ void loop() {
   lcd.print(cm);
   lcd.print("cm");
  
-  if(cm>14)
+  if(cm>500)
   {
     lcd.clear();
     lcd.print("underflow");
-    digitalWrite(buzzer, HIGH);    // to turn on buzzer when water is going to empty
+    digitalWrite(buzzer, LOW);
     //digitalWrite(ledgreen, HIGH);
     //digitalWrite(ledred, LOW);
     //digitalWrite(buzzer, HIGH);
     
     
   }
-  else if(cm<3)
+  else if(cm<400)
   {
     lcd.clear();
     lcd.print("overflow");
-    digitalWrite(buzzer, LOW);
+    digitalWrite(buzzer, HIGH);
     //digitalWrite(ledred, HIGH);
     //digitalWrite(ledgreen, LOW);
     //digitalWrite(buzzer, LOW);
 
   }
-  
-  
-  
-  // scroll 13 positions (string length) to the left
-  // to move it offscreen left:
- /* for (int positionCounter = 0; positionCounter < 13; positionCounter++) {
-    // scroll one position left:
-    lcd.scrollDisplayLeft();
-    // wait a bit:
+  float new_ht= ((13-cm)/30.48); 
+  float cft = 28.7;
+  float d=0.7545;
+  double v=((3.14/4)*(d*d)*new_ht*cft);
+   
+  buttonNew=digitalRead(buttonPin);
+  if(buttonOld==0 && buttonNew==1)
+  {
+    //int c=millis() / 1000;
+    //int v=((3.14/4)*(d*d)*new_ht*cft);
+    //vol=v;
+    lcd.clear();
+    lcd.setCursor(0, 1);
+    lcd.print(v);
     delay(500);
   }
-
-  // scroll 29 positions (string length + display length) to the right
-  // to move it offscreen right:
-  for (int positionCounter = 0; positionCounter < 29; positionCounter++) {
-    // scroll one position right:
-    lcd.scrollDisplayRight();
-    // wait a bit:
-    delay(500);
-  }
-
-  // scroll 16 positions (display length + string length) to the left
-  // to move it back to center:
-  for (int positionCounter = 0; positionCounter < 16; positionCounter++) {
-    // scroll one position left:
-    lcd.scrollDisplayLeft();
-    // wait a bit:
-    delay(500);
-  }
-
-  // delay at the end of the full loop:
-  delay(1000);*/
+  buttonOld=buttonNew;
 
 }
 long microsecondsToInches(long microseconds) // method to covert microsec to inches 
