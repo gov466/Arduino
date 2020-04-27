@@ -115,7 +115,7 @@ void loop() {
     //digitalWrite(buzzer, LOW);
 
   }
-  float new_ht= ((13-cm)/30.48); 
+  float new_ht= ((13-cm)/30.48); //for calcualting the remaining watrer
   float cft = 28.7;
   float d=0.7545;
   double v=((3.14/4)*(d*d)*new_ht*cft);
