@@ -29,21 +29,29 @@
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 const int buzzer=4;
+const int motor=1;
 const int echoPin = 2; // Echo Pin of Ultrasonic Sensor
 const int pingPin = 3; // Trigger Pin of Ultrasonic Sensor
 const int buttonPin= 6;
+const int auto_button= 5;
+const int manu_button= 13;
 int buttonNew;
 int buttonOld =0;
-int d=0.7545;
+int buttonOld1 =0;
+int buttonNew1;
+int motorstate=0;
 
 
 void setup() {
   
-  Serial.begin(9600); // Starting Serial Communication
+  //Serial.begin(9600); // Starting Serial Communication
   pinMode(pingPin, OUTPUT); // initialising pin 3 as output
   pinMode(echoPin, INPUT); // initialising pin 2 as input
   pinMode(buzzer, OUTPUT);
+  pinMode(motor, OUTPUT);
   pinMode(buttonPin, INPUT);
+  pinMode(auto_button, INPUT);
+ // pinMode(man_button, INPUT);
   
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
@@ -53,21 +61,37 @@ void setup() {
   lcd.print("Water Level ");
   lcd.setCursor(4, 1);
   lcd.print("Indicator");
-  delay(500);
+  delay(400);
   lcd.clear();
-  delay(500);
+  delay(400);
   }
   
   // Print a message to the LCD.
-   
-  lcd.print("Water level indicator");
-  delay(1000);
+ 
+  //delay(1000);
 }
-
+void push_motor()
+{
+  
+  buttonNew1=digitalRead(auto_button); //reading the state of pushbutton
+  if(buttonOld1==0 && buttonNew1==1)
+  {                                    //checking the value of pushbutton if previous value is 0 and next value is 1 then check value of led
+    if(motorstate ==0)
+    {                             //checking the state of led
+       digitalWrite(motor,HIGH); //if its turned of the setting it on
+                                 //and then changing the state of led
+       motorstate=1;
+    }
+    else{
+          digitalWrite(motor,LOW);
+          motorstate=0;
+        }
+  }
+buttonOld1=buttonNew1;
+}
 void loop() {
- // digitalWrite(buzzer, LOW);
-   
-   long duration, inches, cm;
+ push_motor();
+  long duration, inches, cm;
   
   digitalWrite(pingPin, LOW);
   delayMicroseconds(2);
@@ -81,41 +105,40 @@ void loop() {
   duration = pulseIn(echoPin, HIGH); // using pulsin function to determine total time
   inches = microsecondsToInches(duration); // calling method
   cm = microsecondsToCentimeters(duration); // calling method
-  if((cm<500)&&(cm>400))
+  if((cm<13)&&(cm>3))
   {
+    //lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("Water level indicator");
   digitalWrite(buzzer, LOW);
   
   }
+  //lcd.clear();
+  //lcd.setCursor(0,0);
+  //lcd.print("Water level indicator");
   lcd.setCursor(0,1);
   lcd.print(inches);
   lcd.print("in. ");
   lcd.print(cm);
   lcd.print("cm");
  
-  if(cm>500)
+  if(cm>13)
   {
     lcd.clear();
     lcd.print("underflow");
     digitalWrite(buzzer, LOW);
-    //digitalWrite(ledgreen, HIGH);
-    //digitalWrite(ledred, LOW);
-    //digitalWrite(buzzer, HIGH);
     
     
   }
-  else if(cm<400)
+  else if(cm<3)
   {
     lcd.clear();
     lcd.print("overflow");
     digitalWrite(buzzer, HIGH);
-    //digitalWrite(ledred, HIGH);
-    //digitalWrite(ledgreen, LOW);
-    //digitalWrite(buzzer, LOW);
 
   }
-  float new_ht= ((13-cm)/30.48); //for calcualting the remaining watrer
+  
+  float new_ht= ((13-cm)/30.48);  
   float cft = 28.7;
   float d=0.7545;
   double v=((3.14/4)*(d*d)*new_ht*cft);
@@ -123,16 +146,22 @@ void loop() {
   buttonNew=digitalRead(buttonPin);
   if(buttonOld==0 && buttonNew==1)
   {
-    //int c=millis() / 1000;
-    //int v=((3.14/4)*(d*d)*new_ht*cft);
-    //vol=v;
-    lcd.clear();
-    lcd.setCursor(0, 1);
-    lcd.print(v);
-    delay(500);
+    remaining_water();
   }
   buttonOld=buttonNew;
-
+  
+}
+void remaining_water()  //function for finding remaining water
+{
+  
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Remaining water");
+    lcd.setCursor(0, 1);
+    lcd.print(v);
+    lcd.setCursor(6, 1);
+    lcd.print("Litres");
+    delay(500);
 }
 long microsecondsToInches(long microseconds) // method to covert microsec to inches 
 {
