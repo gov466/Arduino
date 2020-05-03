@@ -18,7 +18,7 @@
  * LCD D6 pin to digital pin 3
  * LCD D7 pin to digital pin 2
  * LCD R/W pin to ground
- * 10K resistor:
+ * 10K resistor: 
  * ends to +5V and ground
  * wiper to LCD VO pin (pin 3)
 */
@@ -40,7 +40,7 @@ int buttonOld =0;
 int buttonOld1 =0;
 int buttonNew1;
 int motorstate=0;
-
+long duration, inches, cm;
 
 void setup() {
   
@@ -91,7 +91,7 @@ buttonOld1=buttonNew1;
 }
 void loop() {
  push_motor();
-  long duration, inches, cm;
+  
   
   digitalWrite(pingPin, LOW);
   delayMicroseconds(2);
@@ -118,15 +118,21 @@ void loop() {
   //lcd.print("Water level indicator");
   lcd.setCursor(0,1);
   lcd.print(inches);
-  lcd.print("in. ");
+  lcd.print("'inches");
+  lcd.print(" OR ");
+  //lcd.setCursor(0,13);
   lcd.print(cm);
   lcd.print("cm");
+  //lcd.clear();
  
   if(cm>13)
   {
     lcd.clear();
+    lcd.setCursor(0,0);
     lcd.print("underflow");
     digitalWrite(buzzer, LOW);
+    //lcd.setCursor(0,1);
+    //lcd.print("Turning off motor");
     
     
   }
@@ -137,6 +143,12 @@ void loop() {
     digitalWrite(buzzer, HIGH);
 
   }
+  if(cm<2)
+  {
+    lcd.clear();
+    lcd.print("Turning off mtr");
+    digitalWrite(motor,LOW);
+  }
   
   float new_ht= ((13-cm)/30.48);  
   float cft = 28.7;
@@ -146,13 +158,6 @@ void loop() {
   buttonNew=digitalRead(buttonPin);
   if(buttonOld==0 && buttonNew==1)
   {
-    remaining_water();
-  }
-  buttonOld=buttonNew;
-  
-}
-void remaining_water()  //function for finding remaining water
-{
   
     lcd.clear();
     lcd.setCursor(0,0);
@@ -161,8 +166,15 @@ void remaining_water()  //function for finding remaining water
     lcd.print(v);
     lcd.setCursor(6, 1);
     lcd.print("Litres");
-    delay(500);
+    delay(800);
+    lcd.clear();
+     }
+  buttonOld=buttonNew;
+  
 }
+/*void remaining_water()  //function for finding remaining water
+{
+}*/
 long microsecondsToInches(long microseconds) // method to covert microsec to inches 
 {
  return microseconds / 74 / 2;
