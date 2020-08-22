@@ -1,2 +1,2 @@
-# Aurdino
-Basic aurdino programming
+# Arduino
+Basic arduino programming
