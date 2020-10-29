@@ -1,27 +1,33 @@
-//Working of IR sensor with arduino
-void setup()
+int IRSensor1 = 2; // connect ir sensor to arduino pin 2
+int IRSensor2 = 3;
+int LED = 13; // conect Led to arduino pin 13
+
+
+
+void setup() 
 {
-  pinMode(13,OUTPUT); //setting pin 13 as output
-  pinMode(3,INPUT); //setting pin 3 as output
+
+
+
+  pinMode (IRSensor, INPUT); // sensor pin INPUT
+  pinMode (LED, OUTPUT); // Led pin OUTPUT
   Serial.begin(9600);
 }
+
 void loop()
 {
-  if (digitalRead(3)== LOW) //if IR sensior is low then blink led
-  {
-    digitalWrite(13,HIGH);
-    Serial.println("What is this Obstacle?");
-    
-    delay(10);
-  }
-  else 
+  int statusSensor = digitalRead (IRSensor);
   
+  if (statusSensor == 1)
   {
-    
-    digitalWrite(13,LOW);
-     Serial.println("No obstacle");
-    delay(10);
-    
+    digitalWrite(LED, LOW); // LED LOW
+    Serial.println("No  Obstacle?");
+  }
+  
+  else
+  {
+    digitalWrite(LED, HIGH); // LED High
+    Serial.println("What is this Obstacle?");
   }
   
 }
