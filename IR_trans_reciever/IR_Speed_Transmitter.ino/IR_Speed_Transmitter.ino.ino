@@ -1,16 +1,15 @@
-
-//Keeping Sensor 1 and Sensor 2 at a difference of 1 metre
+//Keeping Sensor 1 and Sensor 2 at a difference of 10 metre
 
 int ir1 = 8; // Pin Number for Sensor 1
 int ir2 = 9; // Pin Number for Sensor 2
 
-long begin, end; // Variables to keep track of time
-int difference; // Varibale to Store time taken by Car
-float speed; //Variable to Store Calculated Speed of Car
-int speedLim = 10; //Speed limit for Overspeeding
+long begin_, end_; // Variables to keep track of time
+float time_in_seconds, difference; // Varibale to Store time taken by Car
+float speed_,speed_in_kmhr; //Variable to Store Calculated Speed of Car
+int speedLim = 60; //Speed limit for Overspeeding
 
 void setup() {
-  
+ 
   Serial.begin(9600); //Initializing Serial Communications
 
 
@@ -19,48 +18,50 @@ void setup() {
 
 
   Serial.println("STARTED");
-  
+ 
 
 }
 
-void loop() 
+void loop()
 {
-  if(digitalRead(ir1)==LOW) //If Car detected in front of Sensor -1 
+  if(digitalRead(ir1)==LOW) //If Car detected in front of Sensor -1
   {
     Serial.println("Car Detected at First Sensor"); //Print a message
-    begin = millis(); //Record the Time when Car reaches sensor 1
+    begin_ = millis(); //Record the Time when Car reaches sensor 1
 
     while(digitalRead(ir2)==HIGH) //Until Car is not detected at Sensor-2
-    { 
+    {
       delay(1);//Waiting until Car Reaches Sensor 2
     }
     //Car reached at Sensor 2
-     Serial.println("Car Detected at second Sensor"); //Print a message
-    end = millis(); //Record the Time when Car reaches sensor 2
+   
+    end_ = millis(); //Record the Time when Car reaches sensor 2
 
-    difference = end-begin;//Calculate total time taken
-    speed = difference/1000; // Converting milliseconds to seconds
-    speed = (speed*3600)/1000; //Converting seconds to Hour and Km
+   
+    difference = end_-begin_;//Calculate total time taken
+    time_in_seconds = difference/1000; // Converting milliseconds to seconds //1ms=0.001secs
+    speed_ = 10 /time_in_seconds; // 10 metre by time
+    speed_in_kmhr = (speed_*3600)/1000; //Converting seconds to Hour and Km
 
-    Serial.print("Speed of Car Detected: "); 
-    Serial.print(speed);
+    Serial.print("Speed of Car Detected: ");
+    Serial.print(speed_in_kmhr);
     Serial.println(" km/h"); //Print the calculated speed
 
-    if(speed > speedLim) //If Detected Speed is more that Speed Limit
+    if(speed_in_kmhr > speedLim) //If Detected Speed is more that Speed Limit
     {
       Serial.println("OVERSPEED DETECTED"); //Show Warning message
     }
 
     delay(2000);
-    
+   
 
-    
+   
   }
   else
   {
     delay(1);//Small Delay
   }
-  
-  
+ 
+ 
 
 }
