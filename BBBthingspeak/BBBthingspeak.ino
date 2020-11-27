@@ -24,7 +24,7 @@ void setup() {
 
   Serial.println();
 
-  WiFi.begin(ssid, pass);
+  WiFi.begin(ssid, pass); //begin wifi connection
   Serial.println();
   while (WiFi.status() != WL_CONNECTED) 
   {
@@ -32,7 +32,7 @@ void setup() {
     Serial.print(".");
   }
   Serial.println();
-  Serial.println("Connected.");
+  Serial.println("Connected."); //if everything is OK print statement
   
 }
 
@@ -40,13 +40,13 @@ void loop() {
 
  
 
-  if(Serial.available())
+  if(Serial.available()) //checking if serial is availalble
   {
    while(Serial.available())
    {
-    number1 = Serial.parseInt();
+    number1 = Serial.parseInt();  //storing the recieved data to number1
     Serial.print("GOT : ");
-    Serial.println(number1);
+    Serial.println(number1); //serial print
    }
   }
 
@@ -66,17 +66,17 @@ void loop() {
     Serial.println("\nConnected.");
   }
 
-  if(number1 >= 0)
+  if(number1 >= 0) //checking if recived number is greater than zero
   {
-      digitalWrite(D0,HIGH);
+      digitalWrite(D0,HIGH); //inbuilt led goes high
       // set the fields with the values
       Serial.print("Uploading : ");
       Serial.println(number1);
-      ThingSpeak.setField(1, number1);
+      ThingSpeak.setField(1, number1); //field #1 and data
       
       // write to the ThingSpeak channel
       int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-      if(x == 200)
+      if(x == 200) //HTML code for update success
       {
         Serial.println("Channel update successful.");
       }
@@ -87,7 +87,7 @@ void loop() {
     
       
       delay(20000); // Wait 20 seconds to update the channel again
-      digitalWrite(D0,LOW);
+      digitalWrite(D0,LOW); 
   }
   delay(100);
 }
